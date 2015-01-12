@@ -6,77 +6,75 @@ CREATE SCHEMA IF NOT EXISTS `dxesoft` DEFAULT CHARACTER SET utf8 COLLATE utf8_ge
 USE `dxesoft` ;
 
 -- -----------------------------------------------------
--- Table `dxesoft`.`contacto`
+-- Table `dxesoft`.`contact`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `dxesoft`.`contacto` ;
+DROP TABLE IF EXISTS `dxesoft`.`contact` ;
 
-CREATE  TABLE IF NOT EXISTS `dxesoft`.`contacto` (
+CREATE  TABLE IF NOT EXISTS `dxesoft`.`contact` (
   `Id` INT(10) NOT NULL AUTO_INCREMENT ,
-  `nombres` VARCHAR(200) NULL ,
-  `apellidoPaterno` VARCHAR(60) NULL ,
-  `apellidoMaterno` VARCHAR(60) NULL ,
-  `titulo` VARCHAR(50) NULL,
-  `genero` VARCHAR(10) NULL,
-  `fechaCreacion` DATE NULL,
-  `fechaNacimiento` DATE NULL,
-  `paginaWeb` VARCHAR(500) NULL,
-  `rfc` VARCHAR(15) NULL ,
-  `propietario` INT(10),
+  `Contact_name` VARCHAR(200) NULL ,
+  `Last_name` VARCHAR(60) NULL ,
+  `Apellido_materno` VARCHAR(60) NULL ,
+  `Gender` VARCHAR(10) NULL,
+  `Creation_date` DATE NULL,
+  `Birth_date` DATE NULL,
+  `Web_page` VARCHAR(500) NULL,
+  `Owner` INT(10),
   PRIMARY KEY (`Id`) )
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `dxesoft`.`Direccion`
+-- Table `dxesoft`.`Address`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `dxesoft`.`direccion` ;
+DROP TABLE IF EXISTS `dxesoft`.`Address` ;
 
-CREATE  TABLE IF NOT EXISTS `dxesoft`.`direccion` (
+CREATE  TABLE IF NOT EXISTS `dxesoft`.`Address` (
   `Id` INT(10) NOT NULL AUTO_INCREMENT ,
-  `contactoId` INT(10) NOT NULL ,
-  `nombreCalle` VARCHAR(100) NULL ,
-  `tipoCalle` VARCHAR(80) NULL COMMENT 'tipo calle es:\ncalle\navenida\ncerrada\netc.' ,
-  `numeroExterior` VARCHAR(10) NULL ,
-  `numeroInterior` VARCHAR(10) NULL ,
-  `colonia` VARCHAR(100) NULL ,
-  `codigoPostal` VARCHAR(5) NULL ,
-  `ciudad` VARCHAR(100) NULL ,
-  `tipoDireccion` VARCHAR(45) NULL COMMENT 'Tipo direccion es:\nPersonal o casa\noficina\netc.\n' ,
-  `estado` VARCHAR(100) NULL,
-  `pais` VARCHAR(100) NULL,
-  PRIMARY KEY (`Id`, `contactoId`) ,
-  CONSTRAINT `fk_Direccion_Contacto`
-    FOREIGN KEY (`contactoId` )
-    REFERENCES `dxesoft`.`contacto` (`Id` )
+  `Contact_id` INT(10) NOT NULL ,
+  `Street` VARCHAR(100) NULL ,
+  `Street_type` VARCHAR(80) NULL COMMENT 'tipo calle es:\ncalle\navenida\ncerrada\netc.' ,
+  `Street_number` VARCHAR(10) NULL ,
+  `Apartment_number` VARCHAR(10) NULL ,
+  `Colonia` VARCHAR(100) NULL ,
+  `Zip_code` VARCHAR(5) NULL ,
+  `Address_type` VARCHAR(45) NULL COMMENT 'Tipo Address es:\nPersonal o casa\noficina\netc.\n' ,
+  `City` VARCHAR(100) NULL ,
+  `State` VARCHAR(100) NULL,
+  `Country` VARCHAR(100) NULL,
+  PRIMARY KEY (`Id`, `Contact_id`) ,
+  CONSTRAINT `fk_Address_Contact`
+    FOREIGN KEY (`Contact_id` )
+    REFERENCES `dxesoft`.`contact` (`Id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-COMMENT = 'El estado debe venir de una tabla';
+COMMENT = 'El State debe venir de una tabla';
 
-CREATE INDEX `fk_Direccion_contactoIdx` ON `dxesoft`.`direccion` (`contactoId` ASC) ;
+CREATE INDEX `fk_Address_contactIdx` ON `dxesoft`.`Address` (`Contact_id` ASC) ;
 
 
 -- -----------------------------------------------------
--- Table `dxesoft`.`telefono`
+-- Table `dxesoft`.`Phone_number`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `dxesoft`.`telefono` ;
+DROP TABLE IF EXISTS `dxesoft`.`phone_number` ;
 
-CREATE  TABLE IF NOT EXISTS `dxesoft`.`telefono` (
+CREATE  TABLE IF NOT EXISTS `dxesoft`.`Phone_number` (
   `Id` INT(10) NOT NULL AUTO_INCREMENT ,
-  `contactoId` INT(10) NOT NULL ,
-  `codigoInternacional` VARCHAR(3) NULL ,
-  `numero` VARCHAR(25) NOT NULL ,
+  `Contact_id` INT(10) NOT NULL ,
+  `International_code` VARCHAR(3) NULL ,
+  `Phone_number` VARCHAR(25) NOT NULL ,
   `extension` VARCHAR(5) NULL ,
-  `tipoTelefono` VARCHAR(45) NULL COMMENT 'Tipo telefono es:\nCasa\nCelular\nOficina\netc\nes un texto y no una seleccion de opciones' ,
-  PRIMARY KEY (`Id`, `contactoId`) ,
-  CONSTRAINT `fk_telefono_Contacto1`
-    FOREIGN KEY (`contactoId` )
-    REFERENCES `dxesoft`.`contacto` (`Id` )
+  `Phone_type` VARCHAR(45) NULL COMMENT 'Tipo Phone_number es:\nCasa\nCelular\nOficina\netc\nes un texto y no una seleccion de opciones' ,
+  PRIMARY KEY (`Id`, `Contact_id`) ,
+  CONSTRAINT `fk_phone_Contact`
+    FOREIGN KEY (`Contact_id` )
+    REFERENCES `dxesoft`.`contact` (`Id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_telefono_Contacto1_idx` ON `dxesoft`.`telefono` (`contactoId` ASC) ;
+CREATE INDEX `fk_phone_Contact_idx` ON `dxesoft`.`Phone_number` (`Contact_id` ASC) ;
 
 -- -----------------------------------------------------
 -- Table `dxesoft`.`email`
@@ -85,37 +83,37 @@ DROP TABLE IF EXISTS `dxesoft`.`email` ;
 
 CREATE  TABLE IF NOT EXISTS `dxesoft`.`email` (
   `Id` INT(10) NOT NULL AUTO_INCREMENT ,
-  `contactoId` INT(10) NOT NULL ,
-  `tipoEmail` VARCHAR(45) NULL COMMENT 'Tipo telefono es:\nPersonal\nOficina\netc\nes un texto y no una seleccion de opciones' ,
-  `email` VARCHAR(250) NOT NULL,
-  `status` VARCHAR(45) NULL COMMENT 'Indica si se puede o no enviar mensajes a este correo',
-  PRIMARY KEY (`Id`, `contactoId`),
-  CONSTRAINT `fk_email_Contacto1`
-    FOREIGN KEY (`contactoId` )
-    REFERENCES `dxesoft`.`contacto` (`Id` )
+  `Contact_id` INT(10) NOT NULL ,
+  `Email_type` VARCHAR(45) NULL COMMENT 'Tipo telefono es:\nPersonal\nOficina\netc\nes un texto y no una seleccion de opciones' ,
+  `Email` VARCHAR(250) NOT NULL,
+  `Status` VARCHAR(45) NULL COMMENT 'Indica si se puede o no enviar mensajes a este correo',
+  PRIMARY KEY (`Id`, `Contact_id`),
+  CONSTRAINT `fk_email_Contact`
+    FOREIGN KEY (`Contact_id` )
+    REFERENCES `dxesoft`.`contact` (`Id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-CREATE INDEX `fk_email_Contacto1_idx` ON `dxesoft`.`email` (`contactoId` ASC) ;
+CREATE INDEX `fk_email_Contact_idx` ON `dxesoft`.`email` (`Contact_id` ASC) ;
 
 -- -----------------------------------------------------
--- Table `dxesoft`.`redesSociales`
+-- Table `dxesoft`.`social_network`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `dxesoft`.`redesSociales` ;
+DROP TABLE IF EXISTS `dxesoft`.`social_network` ;
 
-CREATE  TABLE IF NOT EXISTS `dxesoft`.`redesSociales` (
+CREATE  TABLE IF NOT EXISTS `dxesoft`.`social_network` (
   `Id` INT(10) NOT NULL AUTO_INCREMENT ,
-  `contactoId` INT(10) NOT NULL ,
-  `tipoRedSocial` VARCHAR(45) NULL COMMENT 'Tipo telefono es:\nFacebook\nTwitter\netc\nes un texto y no una seleccion de opciones' ,
-  `nombreDeUsuario` VARCHAR(150) NOT NULL,
-  PRIMARY KEY (`Id`, `contactoId`),
-  CONSTRAINT `fk_redesSociales_Contacto1`
-    FOREIGN KEY (`contactoId` )
-    REFERENCES `dxesoft`.`contacto` (`Id` )
+  `Contact_id` INT(10) NOT NULL ,
+  `social_network_type` VARCHAR(45) NULL COMMENT 'Tipo telefono es:\nFacebook\nTwitter\netc\nes un texto y no una seleccion de opciones' ,
+  `social_network_user` VARCHAR(150) NOT NULL,
+  PRIMARY KEY (`Id`, `Contact_id`),
+  CONSTRAINT `fk_Social_network_contact`
+    FOREIGN KEY (`Contact_id` )
+    REFERENCES `dxesoft`.`contact` (`Id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-CREATE INDEX `fk_redesSociales_Contacto1_idx` ON `dxesoft`.`redesSociales` (`contactoId` ASC) ;
+CREATE INDEX `fk_social_network_Contact_idx` ON `dxesoft`.`social_network` (`Contact_id` ASC) ;
 
 
 USE `dxesoft` ;
