@@ -1,7 +1,7 @@
 package mx.com.oxsoftware.dxesoft.resources;
 
-import mx.com.oxsoftware.dxesoft.model.entities.contacto.Contacto;
-import mx.com.oxsoftware.dxesoft.service.Contacto.ContactoService;
+import mx.com.oxsoftware.dxesoft.model.entities.contact.Contact;
+import mx.com.oxsoftware.dxesoft.service.contact.ContactService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,21 +18,21 @@ import static javax.ws.rs.core.MediaType.*;
  */
 @Path("/contacts")
 @Component
-public class ContactoResource {
+public class ContactResource {
 
     @Autowired
-    ContactoService contactoService;
+    ContactService contactService;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ContactoResource.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ContactResource.class);
 
     @POST
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)
-    public Response create(Contacto contacto) {
+    public Response create(Contact contact) {
         LOGGER.debug("Creating a contact");
-        contactoService.createContacto(contacto);
+        contactService.createContact(contact);
 
-        return Response.status(Response.Status.CREATED).entity(contacto).build();
+        return Response.status(Response.Status.CREATED).entity(contact).build();
     }
 
     @GET
@@ -40,9 +40,9 @@ public class ContactoResource {
     @Produces(APPLICATION_JSON)
     public Response getContactById(@PathParam("id")long id) {
         LOGGER.debug("search contact by id");
-        Contacto contacto = contactoService.findById(id);
+        Contact contact = contactService.findById(id);
 
-        return Response.status(Response.Status.OK).entity(contacto).build();
+        return Response.status(Response.Status.OK).entity(contact).build();
     }
 
     @GET
@@ -50,9 +50,9 @@ public class ContactoResource {
     public Response getAll() {
         LOGGER.debug("get all contacts");
 
-        Iterable<Contacto> contactos = contactoService.findAll();
+        Iterable<Contact> contacts = contactService.findAll();
 
-        return Response.status(Response.Status.OK).entity(contactos).build();
+        return Response.status(Response.Status.OK).entity(contacts).build();
     }
 
 }

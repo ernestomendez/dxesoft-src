@@ -1,4 +1,4 @@
-package mx.com.oxsoftware.dxesoft.model.entities.contacto;
+package mx.com.oxsoftware.dxesoft.model.entities.contact;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import mx.com.oxsoftware.dxesoft.model.entities.AbstractEntity;
@@ -16,26 +16,28 @@ import javax.persistence.*;
 public class Email extends AbstractEntity {
 
     @ManyToOne
-    @JoinColumn(name = "contactoId")
+    @PrimaryKeyJoinColumns({
+            @PrimaryKeyJoinColumn(name = "Contact_id")
+    })
     @JsonBackReference
-    private Contacto contacto;
+    private Contact contact;
 
-    @Column(name = "email", length = 250)
+    @Column(name = "Email", length = 250)
     private String email;
 
-    @Column(name = "status", length = 45)
+    @Column(name = "Status", length = 45)
     private String status;
 
-    @Column(name = "tipoEmail")
+    @Column(name = "Email_type")
     @Enumerated(EnumType.STRING)
     private EmailType emailType;
 
-    public Contacto getContacto() {
-        return contacto;
+    public Contact getContact() {
+        return contact;
     }
 
-    public void setContacto(Contacto contacto) {
-        this.contacto = contacto;
+    public void setContact(Contact contact) {
+        this.contact = contact;
     }
 
     public String getEmail() {

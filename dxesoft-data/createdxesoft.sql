@@ -37,7 +37,7 @@ CREATE  TABLE IF NOT EXISTS `dxesoft`.`Address` (
   `Street_number` VARCHAR(10) NULL ,
   `Apartment_number` VARCHAR(10) NULL ,
   `Colonia` VARCHAR(100) NULL ,
-  `Zip_code` VARCHAR(5) NULL ,
+  `Zip_code` VARCHAR(10) NULL ,
   `Address_type` VARCHAR(45) NULL COMMENT 'Tipo Address es:\nPersonal o casa\noficina\netc.\n' ,
   `City` VARCHAR(100) NULL ,
   `State` VARCHAR(100) NULL,

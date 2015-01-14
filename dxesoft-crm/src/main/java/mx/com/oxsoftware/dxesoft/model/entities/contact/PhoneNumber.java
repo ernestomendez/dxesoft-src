@@ -1,4 +1,4 @@
-package mx.com.oxsoftware.dxesoft.model.entities.contacto;
+package mx.com.oxsoftware.dxesoft.model.entities.contact;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import mx.com.oxsoftware.dxesoft.model.entities.AbstractEntity;
@@ -12,33 +12,35 @@ import javax.persistence.*;
  * Represents the Phone numbers in the database.
  */
 @Entity
-@Table(name = "telefono")
+@Table(name = "phone_number")
 public class PhoneNumber extends AbstractEntity {
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "contactoId")
+    @ManyToOne
+    @PrimaryKeyJoinColumns({
+            @PrimaryKeyJoinColumn(name = "Contact_id")
+    })
     @JsonBackReference
-    private Contacto contacto;
+    private Contact contact;
 
-    @Column(name = "codigoInternacional", length = 3)
+    @Column(name = "International_code", length = 3)
     private String internationalCode;
 
-    @Column(name = "numero", length = 14)
+    @Column(name = "Phone_number", length = 14)
     private String number;
 
     @Column(name = "extension", length = 5)
     private String extension;
 
-    @Column(name = "tipoTelefono")
+    @Column(name = "Phone_type")
     @Enumerated(EnumType.STRING)
     private PhoneType phoneType;
 
-    public Contacto getContacto() {
-        return contacto;
+    public Contact getContact() {
+        return contact;
     }
 
-    public void setContacto(Contacto contacto) {
-        this.contacto = contacto;
+    public void setContact(Contact contact) {
+        this.contact = contact;
     }
 
     public String getInternationalCode() {

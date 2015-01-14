@@ -69,11 +69,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `dxesoft`.`stages`
+-- Table `dxesoft`.`stage`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `dxesoft`.`stages` ;
+DROP TABLE IF EXISTS `dxesoft`.`stage` ;
 
-CREATE  TABLE IF NOT EXISTS `dxesoft`.`stages` (
+CREATE  TABLE IF NOT EXISTS `dxesoft`.`stage` (
   `Id` INT(10) NOT NULL AUTO_INCREMENT ,
   `Order` INT(3) NOT NULL ,
   `Stage_name` VARCHAR(100) NOT NULL ,
@@ -83,7 +83,7 @@ CREATE  TABLE IF NOT EXISTS `dxesoft`.`stages` (
   PRIMARY KEY (`Id`))
 ENGINE = InnoDB;
 
-CREATE INDEX `Stages_idx` ON `dxesoft`.`stages` (`Order` ASC) ;
+CREATE INDEX `Stages_idx` ON `dxesoft`.`stage` (`Order` ASC) ;
 
 
 
