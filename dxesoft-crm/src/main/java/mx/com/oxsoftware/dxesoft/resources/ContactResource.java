@@ -27,7 +27,7 @@ public class ContactResource {
 
     @POST
     @Consumes(APPLICATION_JSON)
-    @Produces(APPLICATION_JSON)
+    @Produces("application/vnd.customer+json")
     public Response create(Contact contact) {
         LOGGER.debug("Creating a contact");
         contactService.createContact(contact);
@@ -37,7 +37,7 @@ public class ContactResource {
 
     @GET
     @Path("{id}")
-    @Produces(APPLICATION_JSON)
+    @Produces("application/vnd.customer+json")
     public Response getContactById(@PathParam("id")long id) {
         LOGGER.debug("search contact by id");
         Contact contact = contactService.findById(id);
@@ -46,7 +46,7 @@ public class ContactResource {
     }
 
     @GET
-    @Produces(APPLICATION_JSON)
+    @Produces("application/vnd.customer+json")
     public Response getAll() {
         LOGGER.debug("get all contacts");
 

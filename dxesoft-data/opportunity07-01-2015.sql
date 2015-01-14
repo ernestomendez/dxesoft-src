@@ -1,12 +1,13 @@
+USE `dxesoft` ;
 -- -----------------------------------------------------
 -- Table `dxesoft`.`opportunity`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `dxesoft`.`opportunity` ;
 
-CREATE  TABLE IF NOT EXISTS `dxesoft`.`opportunity` (
+CREATE TABLE IF NOT EXISTS `dxesoft`.`opportunity` (
   `Id` INT(10) NOT NULL AUTO_INCREMENT ,
-  `Name` VARCHAR(250) NULL ,
   `Contact_id` INT(10) NOT NULL,
+  `Name` VARCHAR(250) NULL ,
   `Expected_close_date` DATE NULL ,
   `Creation_date` DATE NOT NULL,
   `Stage_id` INT(10) NOT NULL,
@@ -14,7 +15,7 @@ CREATE  TABLE IF NOT EXISTS `dxesoft`.`opportunity` (
   PRIMARY KEY (`Id`),
   CONSTRAINT `fk_Opportunity_Contacto`
     FOREIGN KEY (`Contact_id` )
-    REFERENCES `dxesoft`.`contacto` (`Id` )
+    REFERENCES `dxesoft`.`contact` (`Id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -38,7 +39,7 @@ CREATE  TABLE IF NOT EXISTS `dxesoft`.`action` (
   PRIMARY KEY (`Id`) ,
   CONSTRAINT `fk_action_contact`
     FOREIGN KEY (`Contact_id` )
-    REFERENCES `dxesoft`.`contacto` (`Id` )
+    REFERENCES `dxesoft`.`contact` (`Id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -75,9 +76,9 @@ DROP TABLE IF EXISTS `dxesoft`.`stage` ;
 
 CREATE  TABLE IF NOT EXISTS `dxesoft`.`stage` (
   `Id` INT(10) NOT NULL AUTO_INCREMENT ,
-  `Order` INT(3) NOT NULL ,
   `Stage_name` VARCHAR(100) NOT NULL ,
   `Active` TINYINT(1) NOT NULL ,
+  `Order` INT(3) NOT NULL ,
   `Is_final` TINYINT(1) NOT NULL ,
   `Creation_date` DATE NULL ,
   PRIMARY KEY (`Id`))

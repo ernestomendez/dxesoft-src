@@ -7,7 +7,7 @@
     <!--</appender>-->
     <appender name="STOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%date [%level]%n%caller{3}          - %msg%n</pattern>
+            <pattern>[%level][%date]%n%caller{3}          - %msg%n</pattern>
         </encoder>
     </appender>
 

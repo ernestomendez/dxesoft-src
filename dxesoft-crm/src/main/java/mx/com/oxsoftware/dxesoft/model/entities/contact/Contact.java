@@ -7,6 +7,7 @@ import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -55,6 +56,10 @@ public class Contact extends AbstractEntity {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "contact", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Email> emails;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "contact", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<Address> addresses;
 
     public String getContactName() {
         return contactName;
@@ -126,5 +131,13 @@ public class Contact extends AbstractEntity {
 
     public void setEmails(List<Email> emails) {
         this.emails = emails;
+    }
+
+    public List<Address> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
     }
 }

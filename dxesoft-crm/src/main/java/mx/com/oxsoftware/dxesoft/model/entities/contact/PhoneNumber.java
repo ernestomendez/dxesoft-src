@@ -5,6 +5,7 @@ import mx.com.oxsoftware.dxesoft.model.entities.AbstractEntity;
 import mx.com.oxsoftware.dxesoft.utils.PhoneType;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by ernesto on 12/11/14.
@@ -13,12 +14,11 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "phone_number")
-public class PhoneNumber extends AbstractEntity {
+public class PhoneNumber extends AbstractEntity implements Serializable {
 
-    @ManyToOne
-    @PrimaryKeyJoinColumns({
-            @PrimaryKeyJoinColumn(name = "Contact_id")
-    })
+    @Id
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "Contact_id", referencedColumnName = "Id")
     @JsonBackReference
     private Contact contact;
 

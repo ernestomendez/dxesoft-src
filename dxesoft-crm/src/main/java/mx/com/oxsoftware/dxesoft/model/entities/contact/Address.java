@@ -4,19 +4,19 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import mx.com.oxsoftware.dxesoft.model.entities.AbstractEntity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Date: 1/12/15
  * User: ernesto
  */
 @Entity
-@Table(name = "Address")
-public class Address extends AbstractEntity {
+@Table(name = "address")
+public class Address extends AbstractEntity implements Serializable {
 
-    @ManyToOne
-    @PrimaryKeyJoinColumns({
-            @PrimaryKeyJoinColumn(name = "Contact_id")
-    })
+    @Id
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "Contact_id", referencedColumnName = "Id")
     @JsonBackReference
     private Contact contact;
 

@@ -9,8 +9,8 @@ import java.util.Map;
  * This enum represents the gender for the contacts.
  */
 public enum Gender {
-    MASCULINO("dxesoft.male"),
-    FEMENINO("dxesoft.female");
+    MALE("dxesoft.male"),
+    FEMALE("dxesoft.female");
 
     private final String label;
 

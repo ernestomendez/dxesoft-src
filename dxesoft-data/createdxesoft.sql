@@ -25,11 +25,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `dxesoft`.`Address`
+-- Table `dxesoft`.`address`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `dxesoft`.`Address` ;
+DROP TABLE IF EXISTS `dxesoft`.`address` ;
 
-CREATE  TABLE IF NOT EXISTS `dxesoft`.`Address` (
+CREATE  TABLE IF NOT EXISTS `dxesoft`.`address` (
   `Id` INT(10) NOT NULL AUTO_INCREMENT ,
   `Contact_id` INT(10) NOT NULL ,
   `Street` VARCHAR(100) NULL ,
@@ -38,7 +38,7 @@ CREATE  TABLE IF NOT EXISTS `dxesoft`.`Address` (
   `Apartment_number` VARCHAR(10) NULL ,
   `Colonia` VARCHAR(100) NULL ,
   `Zip_code` VARCHAR(10) NULL ,
-  `Address_type` VARCHAR(45) NULL COMMENT 'Tipo Address es:\nPersonal o casa\noficina\netc.\n' ,
+  `Address_type` VARCHAR(45) NULL COMMENT 'Tipo address es:\nPersonal o casa\noficina\netc.\n' ,
   `City` VARCHAR(100) NULL ,
   `State` VARCHAR(100) NULL,
   `Country` VARCHAR(100) NULL,
@@ -51,7 +51,7 @@ CREATE  TABLE IF NOT EXISTS `dxesoft`.`Address` (
 ENGINE = InnoDB
 COMMENT = 'El State debe venir de una tabla';
 
-CREATE INDEX `fk_Address_contactIdx` ON `dxesoft`.`Address` (`Contact_id` ASC) ;
+CREATE INDEX `fk_Address_contactIdx` ON `dxesoft`.`address` (`Contact_id` ASC) ;
 
 
 -- -----------------------------------------------------
@@ -59,7 +59,7 @@ CREATE INDEX `fk_Address_contactIdx` ON `dxesoft`.`Address` (`Contact_id` ASC) ;
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `dxesoft`.`phone_number` ;
 
-CREATE  TABLE IF NOT EXISTS `dxesoft`.`Phone_number` (
+CREATE  TABLE IF NOT EXISTS `dxesoft`.`phone_number` (
   `Id` INT(10) NOT NULL AUTO_INCREMENT ,
   `Contact_id` INT(10) NOT NULL ,
   `International_code` VARCHAR(3) NULL ,
@@ -74,7 +74,7 @@ CREATE  TABLE IF NOT EXISTS `dxesoft`.`Phone_number` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_phone_Contact_idx` ON `dxesoft`.`Phone_number` (`Contact_id` ASC) ;
+CREATE INDEX `fk_phone_Contact_idx` ON `dxesoft`.`phone_number` (`Contact_id` ASC) ;
 
 -- -----------------------------------------------------
 -- Table `dxesoft`.`email`

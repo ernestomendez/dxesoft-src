@@ -5,6 +5,7 @@ import mx.com.oxsoftware.dxesoft.model.entities.AbstractEntity;
 import mx.com.oxsoftware.dxesoft.utils.EmailType;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by ernesto on 12/13/14.
@@ -13,12 +14,11 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "email")
-public class Email extends AbstractEntity {
+public class Email extends AbstractEntity implements Serializable {
 
-    @ManyToOne
-    @PrimaryKeyJoinColumns({
-            @PrimaryKeyJoinColumn(name = "Contact_id")
-    })
+    @Id
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "Contact_id", referencedColumnName = "Id")
     @JsonBackReference
     private Contact contact;
 
@@ -31,6 +31,14 @@ public class Email extends AbstractEntity {
     @Column(name = "Email_type")
     @Enumerated(EnumType.STRING)
     private EmailType emailType;
+
+//    public int getContactId() {
+//        return contactId;
+//    }
+//
+//    public void setContactId(int contactId) {
+//        this.contactId = contactId;
+//    }
 
     public Contact getContact() {
         return contact;
