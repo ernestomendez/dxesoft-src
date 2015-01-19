@@ -7,8 +7,11 @@ import mx.com.oxsoftware.dxesoft.utils.DxesoftUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 
 @Service
@@ -35,8 +38,17 @@ public class ContactServiceImpl implements ContactService {
 
     @Override
     @Transactional(readOnly = true)
-    public Iterable<Contact> findAll() {
+    public Iterable<Contact> findAll(Integer pageNumber) {
         LOGGER.debug("contact findAll");
+        PageRequest pageRequest = new PageRequest(pageNumber -1, 50);
+        return contactRepository.findAll(pageRequest);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Contact> findAll() {
+        LOGGER.debug("contact findAll");
+//        PageRequest pageRequest = new PageRequest(pageNumber -1, 50);
         return contactRepository.findAll();
     }
 
@@ -51,8 +63,8 @@ public class ContactServiceImpl implements ContactService {
     public void update(Contact contact) throws Exception {
         LOGGER.debug("update");
         Preconditions.checkNotNull(contact);
-        Contact exist = contactRepository.findOne(contact.getId());
-        if (exist == null) {
+
+        if (contactRepository.exists(contact.getId())) {
             throw new Exception("alsdkfj");
         } else {
             contactRepository.save(contact);

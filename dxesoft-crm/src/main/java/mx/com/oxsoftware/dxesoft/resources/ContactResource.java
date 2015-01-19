@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 
+import java.util.List;
+
 import static javax.ws.rs.core.MediaType.*;
 
 /**
@@ -27,7 +29,7 @@ public class ContactResource {
 
     @POST
     @Consumes(APPLICATION_JSON)
-    @Produces("application/vnd.customer+json")
+    @Produces(APPLICATION_JSON)
     public Response create(Contact contact) {
         LOGGER.debug("Creating a contact");
         contactService.createContact(contact);
@@ -37,7 +39,7 @@ public class ContactResource {
 
     @GET
     @Path("{id}")
-    @Produces("application/vnd.customer+json")
+    @Produces(APPLICATION_JSON)
     public Response getContactById(@PathParam("id")long id) {
         LOGGER.debug("search contact by id");
         Contact contact = contactService.findById(id);
@@ -45,14 +47,39 @@ public class ContactResource {
         return Response.status(Response.Status.OK).entity(contact).build();
     }
 
+//    @GET
+//    @Produces(APPLICATION_JSON)
+//    public Response getAll(int pageNumber) {
+//        LOGGER.debug("get all contacts");
+//
+//        Iterable<Contact> contacts = contactService.findAll(pageNumber);
+//
+//        return Response.status(Response.Status.OK).entity(contacts).build();
+//    }
+
     @GET
-    @Produces("application/vnd.customer+json")
+    @Produces(APPLICATION_JSON)
     public Response getAll() {
         LOGGER.debug("get all contacts");
 
-        Iterable<Contact> contacts = contactService.findAll();
+        List<Contact> contacts = contactService.findAll();
 
         return Response.status(Response.Status.OK).entity(contacts).build();
+    }
+
+    @PUT
+    @Consumes(APPLICATION_JSON)
+    @Produces(APPLICATION_JSON)
+    public Response update(Contact contact) {
+        LOGGER.debug("Update contact");
+        try {
+            contactService.update(contact);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.status(Response.Status.NOT_MODIFIED).build();
+        }
+
+        return Response.status(Response.Status.OK).entity(contact).build();
     }
 
 }

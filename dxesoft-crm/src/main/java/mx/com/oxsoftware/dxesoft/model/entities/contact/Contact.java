@@ -1,13 +1,17 @@
 package mx.com.oxsoftware.dxesoft.model.entities.contact;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import mx.com.oxsoftware.dxesoft.model.entities.AbstractEntity;
+import mx.com.oxsoftware.dxesoft.utils.CustomDateDeserializer;
+import mx.com.oxsoftware.dxesoft.utils.CustomDateSerializer;
 import mx.com.oxsoftware.dxesoft.utils.Gender;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
-import java.io.Serializable;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 
 /**
@@ -17,6 +21,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "contact")
+@XmlRootElement
 public class Contact extends AbstractEntity {
 
     @Column(name = "Contact_name", length = 200)
@@ -40,10 +45,14 @@ public class Contact extends AbstractEntity {
 
     @Column(name = "Creation_date")
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    @JsonSerialize(using = CustomDateSerializer.class)
+    @JsonDeserialize(using = CustomDateDeserializer.class)
     private DateTime creationDate;
 
     @Column(name = "Birth_date")
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    @JsonSerialize(using = CustomDateSerializer.class)
+    @JsonDeserialize(using = CustomDateDeserializer.class)
     private DateTime birthDate;
 
 //    @Column(length = 15)

@@ -50,9 +50,7 @@ public class StageServiceImpl implements StageService {
         LOGGER.debug("Update stage");
         Preconditions.checkNotNull(stage, "Can not update a null stage");
 
-        final Stage stageExist = stageRepository.findOne(stage.getId());
-
-        if (null == stageExist) {
+        if (stageRepository.exists(stage.getId())) {
             throw new Exception("alsdkfj");
         } else {
             stageRepository.save(stage);
